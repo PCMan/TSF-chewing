@@ -26,6 +26,11 @@ class CImeEngine;
 BOOL InitTsfHelper(HINSTANCE hInstance, CImeEngine* engine);
 void FreeTsfHelper();
 
+STDAPI TsfDllCanUnloadNow(void);
+STDAPI TsfDllUnregisterServer(void);
+STDAPI TsfDllRegisterServer(void);
+STDAPI TsfDllGetClassObject(REFCLSID rclsid, REFIID riid, void **ppvObj);
+
 void DllAddRef();
 void DllRelease();
 

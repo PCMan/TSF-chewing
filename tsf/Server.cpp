@@ -207,7 +207,7 @@ void FreeGlobalObjects(void)
 //
 //----------------------------------------------------------------------------
 
-STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, void **ppvObj)
+STDAPI TsfDllGetClassObject(REFCLSID rclsid, REFIID riid, void **ppvObj)
 {
     if (g_ObjectInfo[0] == NULL)
     {
@@ -248,7 +248,7 @@ STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, void **ppvObj)
 //
 //----------------------------------------------------------------------------
 
-STDAPI DllCanUnloadNow(void)
+STDAPI TsfDllCanUnloadNow(void)
 {
     if (g_cRefDll >= 0) // -1 with no refs
         return S_FALSE;
@@ -262,7 +262,7 @@ STDAPI DllCanUnloadNow(void)
 //
 //----------------------------------------------------------------------------
 
-STDAPI DllUnregisterServer(void)
+STDAPI TsfDllUnregisterServer(void)
 {
     UnregisterProfiles();
     UnregisterCategories();
@@ -277,7 +277,7 @@ STDAPI DllUnregisterServer(void)
 //
 //----------------------------------------------------------------------------
 
-STDAPI DllRegisterServer(void)
+STDAPI TsfDllRegisterServer(void)
 {
     // register this service's profile with the tsf
     if (!RegisterServer() ||

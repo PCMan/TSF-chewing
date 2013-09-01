@@ -2,49 +2,56 @@ cmake_minimum_required(VERSION 2.8.8)
 
 project(TSF-chewing)
 add_subdirectory(libchewing)
-include_directories(libchewing/include)
+include_directories(
+	libchewing/include
+	tsfhelper
+)
 
 # http://www.utf8everywhere.org/
 add_definitions(/D_UNICODE=1 /DUNICODE=1)
 
 set(SRC ${PROJECT_SOURCE_DIR}/src)
 
+set(TSF_SRC ${PROJECT_SOURCE_DIR}/tsf)
+
 add_library(ChewingService SHARED
-        ${SRC}/ImeEngine.cpp
-        ${SRC}/CandidateList.h
-        ${SRC}/CandidateWindow.h
-        ${SRC}/DisplayAttributeInfo.h
-        ${SRC}/EditSession.h
-        ${SRC}/EnumDisplayAttributeInfo.h
-        ${SRC}/Globals.h
-        ${SRC}/Resource.h
-        ${SRC}/TextService.h
-        ${SRC}/Util.h
-        ${SRC}/CandidateList.cpp
-        ${SRC}/CandidateWindow.cpp
-        ${SRC}/Compartment.cpp
-        ${SRC}/Composition.cpp
-        ${SRC}/DisplayAttribute.cpp
-        ${SRC}/DisplayAttributeInfo.cpp
-        ${SRC}/DisplayAttributeProvider.cpp
         ${SRC}/DllMain.cpp
-        ${SRC}/EndComposition.cpp
-        ${SRC}/EnumDisplayAttributeInfo.cpp
-        ${SRC}/Globals.cpp
-        ${SRC}/KeyEventSink.cpp
-        ${SRC}/KeyHandler.cpp
-        ${SRC}/LanguageBar.cpp
-        ${SRC}/PreComp.cpp
-        ${SRC}/Register.cpp
-        ${SRC}/Server.cpp
-        ${SRC}/StartComposition.cpp
-        ${SRC}/TextEditSink.cpp
-        ${SRC}/TextService.cpp
-        ${SRC}/ThreadMgrEventSink.cpp
-        ${SRC}/TextService.def
-        ${SRC}/TextService.ico
-        ${SRC}/TextService.rc
-        ${SRC}/Util.cpp
+        ${SRC}/ChewingEngine.cpp
+
+        ${TSF_SRC}/ImeEngine.cpp
+        ${TSF_SRC}/CandidateList.h
+        ${TSF_SRC}/CandidateWindow.h
+        ${TSF_SRC}/DisplayAttributeInfo.h
+        ${TSF_SRC}/EditSession.h
+        ${TSF_SRC}/EnumDisplayAttributeInfo.h
+        ${TSF_SRC}/Globals.h
+        ${TSF_SRC}/Resource.h
+        ${TSF_SRC}/TextService.h
+        ${TSF_SRC}/Util.h
+        ${TSF_SRC}/CandidateList.cpp
+        ${TSF_SRC}/CandidateWindow.cpp
+        ${TSF_SRC}/Compartment.cpp
+        ${TSF_SRC}/Composition.cpp
+        ${TSF_SRC}/DisplayAttribute.cpp
+        ${TSF_SRC}/DisplayAttributeInfo.cpp
+        ${TSF_SRC}/DisplayAttributeProvider.cpp
+        ${TSF_SRC}/EndComposition.cpp
+        ${TSF_SRC}/EnumDisplayAttributeInfo.cpp
+        ${TSF_SRC}/Globals.cpp
+        ${TSF_SRC}/KeyEventSink.cpp
+        ${TSF_SRC}/KeyHandler.cpp
+        ${TSF_SRC}/LanguageBar.cpp
+        ${TSF_SRC}/PreComp.cpp
+        ${TSF_SRC}/Register.cpp
+        ${TSF_SRC}/Server.cpp
+        ${TSF_SRC}/StartComposition.cpp
+        ${TSF_SRC}/TextEditSink.cpp
+        ${TSF_SRC}/TextService.cpp
+        ${TSF_SRC}/ThreadMgrEventSink.cpp
+        ${TSF_SRC}/TextService.def
+        ${TSF_SRC}/TextService.ico
+        ${TSF_SRC}/TextService.rc
+        ${TSF_SRC}/Util.cpp
 )
 # How to link to target in subproject?
 target_link_libraries(ChewingService chewing_static)
