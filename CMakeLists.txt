@@ -10,6 +10,7 @@ add_definitions(/D_UNICODE=1 /DUNICODE=1)
 set(SRC ${PROJECT_SOURCE_DIR}/src)
 
 add_library(ChewingService SHARED
+        ${SRC}/ImeEngine.cpp
         ${SRC}/CandidateList.h
         ${SRC}/CandidateWindow.h
         ${SRC}/DisplayAttributeInfo.h

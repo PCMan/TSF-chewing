@@ -14,36 +14,34 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "Globals.h"
-#include "CandidateWindow.h"
+#include "ImeEngine.h"
 
-//+---------------------------------------------------------------------------
-//
-// DllMain
-//
-//----------------------------------------------------------------------------
+class ChewingImeEngine: public CImeEngine {
+public:
+	ChewingImeEngine() {
+	}
+
+	~ChewingImeEngine() {
+	}
+};
+
+static ChewingImeEngine* g_ChewingEngine = NULL;
 
 BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID pvReserved)
 {
     switch (dwReason)
     {
         case DLL_PROCESS_ATTACH:
-
-            g_hInst = hInstance;
-
-            if (!InitializeCriticalSectionAndSpinCount(&g_cs, 0))
-                return FALSE;
-
-            // register candidate window class.
-            CCandidateWindow::_InitWindowClass();
+			g_ChewingEngine = new ChewingImeEngine();
+			return ::InitTsfHelper(hInstance, g_ChewingEngine);
             break;
 
         case DLL_PROCESS_DETACH:
-
-            // unregister candidate window class.
-            CCandidateWindow::_UninitWindowClass();
-
-            DeleteCriticalSection(&g_cs);
-
+			::FreeTsfHelper();
+			if(g_ChewingEngine) {
+				delete g_ChewingEngine;
+				g_ChewingEngine = NULL;
+			}
             break;
     }
 

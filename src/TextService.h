@@ -19,6 +19,7 @@
 #include "chewing.h"
 #include "Util.h"
 
+class CImeEngine;
 class CLangBarItemButton;
 class CCandidateList;
 

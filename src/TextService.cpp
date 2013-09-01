@@ -16,12 +16,17 @@
 #include "globals.h"
 #include "TextService.h"
 #include "CandidateList.h"
+#include "CandidateWindow.h"
+
+#include "ImeEngine.h"
 
 //+---------------------------------------------------------------------------
 //
 // CreateInstance
 //
 //----------------------------------------------------------------------------
+
+static CImeEngine* g_ImeEngine = NULL;
 
 /* static */
 HRESULT CTextService::CreateInstance(IUnknown *pUnkOuter, REFIID riid, void **ppvObj)
@@ -300,3 +305,24 @@ STDAPI CTextService::Deactivate()
 
     return S_OK;
 }
+
+BOOL InitTsfHelper(HINSTANCE hInstance, CImeEngine* engine)
+{
+	g_ImeEngine = engine;
+	g_hInst = hInstance;
+	if (!InitializeCriticalSectionAndSpinCount(&g_cs, 0))
+		return FALSE;
+	// register candidate window class.
+	CCandidateWindow::_InitWindowClass();
+	return TRUE;
+}
+
+void FreeTsfHelper()
+{
+    // unregister candidate window class.
+    CCandidateWindow::_UninitWindowClass();
+
+    DeleteCriticalSection(&g_cs);
+
+}
+

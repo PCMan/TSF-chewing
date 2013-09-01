@@ -22,6 +22,10 @@
 #include <assert.h>
 #include "msctf.h"
 
+class CImeEngine;
+BOOL InitTsfHelper(HINSTANCE hInstance, CImeEngine* engine);
+void FreeTsfHelper();
+
 void DllAddRef();
 void DllRelease();
 
